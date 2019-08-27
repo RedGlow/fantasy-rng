@@ -3,7 +3,7 @@
 import { describe } from "riteway";
 import splitNumber from "./split-number";
 
-describe("Test", async assert => {
+describe("split-number", async assert => {
   /**
    * 100101110111001010011 = 1240659
    * 1  1  1  1  0  0  0   = 120
