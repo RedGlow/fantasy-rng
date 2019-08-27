@@ -1,0 +1,43 @@
+{
+  "name": "fantasy-rng",
+  "version": "0.1.0",
+  "description": "A functional (pseudo) random number generator implementing Fantasy Land interfaces.",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel -d dist src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedGlow/fantasy-rng.git"
+  },
+  "keywords": [
+    "fantasy-land",
+    "rng",
+    "prng",
+    "random",
+    "monad",
+    "functional"
+  ],
+  "author": "Mattia Belletti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RedGlow/fantasy-rng/issues"
+  },
+  "homepage": "https://github.com/RedGlow/fantasy-rng#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "@susisu/tf-random": "^0.1.1",
+    "babel-eslint": "^10.0.3",
+    "daggy": "^1.4.0",
+    "eslint": "^6.2.2",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "fantasy-land": "^4.0.1",
+    "prettier": "^1.18.2"
+  }
+}
