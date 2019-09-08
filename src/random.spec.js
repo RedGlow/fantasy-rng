@@ -152,4 +152,35 @@ describe("Random", async a => {
       actual: Random[fl.of](y)[fl.ap](u)
     });
   }
+
+  {
+    ///
+    /// CHAIN
+    ///
+
+    // expected behaviour
+    const r = Random(createStaticGenerator([3]));
+    const fr = x => Random(createStaticGenerator([x, x + 1, x + 2]));
+
+    const e = Random(createStaticGenerator([3, 4, 5]));
+    const a = r[fl.chain](fr);
+    assert({
+      given: "a Random chain",
+      should: "correctly produce chains",
+      expected: e,
+      actual: a
+    });
+
+    // check laws
+    const m = Random(createStaticGenerator([3, 7, 4]));
+    const f = x => Random(createStaticGenerator([x + 3, x + 4, x + 5]));
+    const g = x => Random(createStaticGenerator([x * 2, x / 2, x * 3]));
+    assert({
+      given: "a Random chain",
+      should:
+        "respect the first law: m.chain(f).chain(g) === m.chain(x => f(x).chain(g))",
+      expected: m[fl.chain](f)[fl.chain](g),
+      actual: m[fl.chain](x => f(x)[fl.chain](g))
+    });
+  }
 });
