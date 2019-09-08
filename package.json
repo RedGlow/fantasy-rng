@@ -1,12 +1,17 @@
 {
   "name": "fantasy-rng",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A functional (pseudo) random number generator implementing Fantasy Land interfaces.",
   "main": "index.js",
   "scripts": {
     "build": "babel -d dist src",
-    "test": "riteway -r @babel/register -r @babel/polyfill src/**/*.spec.js | tap-nirvana"
+    "test": "riteway -r @babel/register -r @babel/polyfill src/**/*.spec.js | tap-nirvana",
+    "pre-publish": "npm run test"
   },
+  "files": [
+    "/dist",
+    "/LICENSE"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RedGlow/fantasy-rng.git"
