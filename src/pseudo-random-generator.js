@@ -9,9 +9,9 @@ import splitNumber from "./split-number";
  */
 
 /**
-* @callback SplitFunction
-* @returns [SplittableRandomNumberGenerator, SplittableRandomNumberGenerator]
-*/
+ * @callback SplitFunction
+ * @returns [SplittableRandomNumberGenerator, SplittableRandomNumberGenerator]
+ */
 
 /**
  * A splittable random number generator.
@@ -29,7 +29,7 @@ import splitNumber from "./split-number";
 export const createRandomGenerator = seed => {
   const [a0, a1, b0, b1, c0, c1, d0, d1] = splitNumber(8)(seed);
   return TFGen.seed(a0, a1, b0, b1, c0, c1, d0, d1);
-}
+};
 
 export const defaultRandomGenerator = createRandomGenerator(
   Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
@@ -50,8 +50,14 @@ export const createStaticGenerator = values => {
    * @param {number} delta
    */
   const createGenerator = (i, delta) => ({
-    next: /** @type NextFunction */ () => [values[i], createGenerator(crop(i + delta), delta)],
-    split: /** @type SplitFunction */ () => [createGenerator(i, delta * 2), createGenerator(crop(i + delta), delta * 2)]
+    next: /** @type NextFunction */ () => [
+      values[i],
+      createGenerator(crop(i + delta), delta)
+    ],
+    split: /** @type SplitFunction */ () => [
+      createGenerator(i, delta * 2),
+      createGenerator(crop(i + delta), delta * 2)
+    ]
   });
   return createGenerator(0, 1);
-}
+};

@@ -1,15 +1,20 @@
 import { describe } from "riteway";
-import { createRandomGenerator, createStaticGenerator, SplittableRandomNumberGenerator } from "./pseudo-random-generator";
+import {
+  createRandomGenerator,
+  createStaticGenerator
+} from "./pseudo-random-generator";
 
 /**
- * 
- * @param {SplittableRandomNumberGenerator} rng 
+ *
+ * @param {import("./pseudo-random-generator").SplittableRandomNumberGenerator} rng
  */
 const callN = (n, rng) => {
-  if (n === 0) { return []; }
+  if (n === 0) {
+    return [];
+  }
   const [value, newRng] = rng.next();
   return [value].concat(callN(n - 1, newRng));
-}
+};
 
 describe("pseudo-random-generator", async assert => {
   {
@@ -20,14 +25,19 @@ describe("pseudo-random-generator", async assert => {
     const values2 = callN(9, gen2);
     assert({
       given: "two pseudo random number generators from the same seed",
-      should: "produce the same set of seeds",
+      should: "produce the same set of values",
       actual: values2,
       expected: values1
     });
 
     const [gen11, gen12] = gen1.split();
     const [gen21, gen22] = gen2.split();
-    const [values11, values12, values21, values22] = [gen11, gen12, gen21, gen22].map(g => callN(9, g));
+    const [values11, values12, values21, values22] = [
+      gen11,
+      gen12,
+      gen21,
+      gen22
+    ].map(g => callN(9, g));
     assert({
       given: "a split of two rng from the same seed",
       should: "produce the same 'first' sub-generator",
@@ -54,11 +64,13 @@ describe("pseudo-random-generator", async assert => {
 
     const gens = gen1.split();
     const [values1, values2] = gens.map(gen => callN(3, gen));
-    values1.forEach((value, i) => assert({
-      given: "a splitted static number generator",
-      should: "produce distinct values",
-      actual: value != values2[i],
-      expected: true
-    }));
+    values1.forEach((value, i) =>
+      assert({
+        given: "a splitted static number generator",
+        should: "produce distinct values",
+        actual: value != values2[i],
+        expected: true
+      })
+    );
   }
-})
+});
