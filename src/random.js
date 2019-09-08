@@ -3,7 +3,7 @@ import { tagged } from "daggy";
 
 import { createStaticGenerator } from "./pseudo-random-generator";
 
-const Random = tagged("Random", ["rng"]);
+export const Random = tagged("Random", ["rng"]);
 
 Random[fl.of] = value => Random(createStaticGenerator([value]));
 
@@ -42,5 +42,3 @@ Random.prototype[fl.ap] = function(randomf) {
 Random.prototype[fl.chain] = function(randomf) {
   return randomf(this.rng.next()[0]);
 };
-
-export default Random;

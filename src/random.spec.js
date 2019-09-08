@@ -1,7 +1,7 @@
 import { describe } from "riteway";
 import * as fl from "fantasy-land";
 
-import Random from "./random";
+import { Random } from "./random";
 import { createStaticGenerator } from "./pseudo-random-generator";
 import { callN } from "./spechelpers";
 
