@@ -31,7 +31,6 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
-    "@susisu/tf-random": "^0.1.1",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.2.2",
     "eslint-config-prettier": "^6.1.0",
@@ -43,6 +42,7 @@
     "tap-nirvana": "^1.1.0"
   },
   "dependencies": {
+    "@susisu/tf-random": "^0.1.1",
     "daggy": "^1.4.0",
     "fantasy-land": "^4.0.1"
   }
