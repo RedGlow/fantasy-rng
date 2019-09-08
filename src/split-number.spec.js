@@ -16,4 +16,11 @@ describe("split-number", async assert => {
     expected: [120, 27, 45].sort(),
     actual: splitNumber(3)(1240659).sort()
   });
+
+  assert({
+    given: "a problematic seed",
+    should: "be able to complete without getting stuck",
+    expected: true,
+    actual: splitNumber(8)(6874244025985689) && true
+  });
 });

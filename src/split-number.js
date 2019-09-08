@@ -32,7 +32,7 @@ const nums = (numbers, seed) => {
   let pow = 0;
   while (seed !== 0) {
     numbers = numbers.map((n, i) => n | (((seed & (1 << i)) >>> i) << pow));
-    seed = seed >> numbers.length;
+    seed = seed >>> numbers.length;
     pow++;
   }
   return numbers;
