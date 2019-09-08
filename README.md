@@ -38,8 +38,8 @@ const createTree = rng => height => {
       type: 'leaf'
     };
   } else {
-    const [rng1, rng2] = rng.split();
-    const [value] = rng.next();
+    const [value, newRng] = rng.next();
+    const [rng1, rng2] = newRng.split();
     return {
       type: 'node',
       value,
