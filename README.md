@@ -62,7 +62,14 @@ There are some methods used to create standard RNGs.
 
 Sometimes it's useful to manipulate random numbers through monadic constructs. `Random` is the implementation of the Random monad based upon a RNG. It follows the specifications of Fantasy Land.
 
-A Random instance is created with:
+A Random instance is created passing it a random number generator. E.g.:
+
+```javascript
+import { Random, defaultRandomGenerator } from 'fantasy-rng';
+const myRandom = Random(defaultRandomGenerator);
+```
+
+The implementations of the monad methods have the following semantic:
 
 - `fantasy-land/map`: maps every value produced by the generator using the given function.
 - `fantasy-land/of`: creates a generator that produces the value provided over and over.
