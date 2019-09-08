@@ -25,7 +25,7 @@ const randomlist = rng => n => {
     return [];
   }
   const [value, newRng] = rng.next();
-  return [value].concat(randomlist(n - 1)(newRng));
+  return [value].concat(randomlist(newRng)(n - 1));
 };
 ```
 
