@@ -3,7 +3,7 @@ A functional (pseudo) random number generator implementing Fantasy Land interfac
 
 ## Generator and factories
 
-The library offers three factories to produce PRNG (pseuro random number generators).
+The library offers three factories to produce PRNG (pseudo random number generators).
 
 ### RNG interface
 
