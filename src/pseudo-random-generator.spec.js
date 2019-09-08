@@ -3,26 +3,17 @@ import {
   createRandomGenerator,
   createStaticGenerator
 } from "./pseudo-random-generator";
+import { callN } from "./spechelpers";
 
-/**
- *
- * @param {import("./pseudo-random-generator").SplittableRandomNumberGenerator} rng
- */
-const callN = (n, rng) => {
-  if (n === 0) {
-    return [];
-  }
-  const [value, newRng] = rng.next();
-  return [value].concat(callN(n - 1, newRng));
-};
+const [call3, call9, call11] = [3, 9, 11].map(callN);
 
 describe("pseudo-random-generator", async assert => {
   {
     const seed1 = 94935873482;
     const gen1 = createRandomGenerator(seed1);
-    const values1 = callN(9, gen1);
+    const values1 = call9(gen1);
     const gen2 = createRandomGenerator(seed1);
-    const values2 = callN(9, gen2);
+    const values2 = call9(gen2);
     assert({
       given: "two pseudo random number generators from the same seed",
       should: "produce the same set of values",
@@ -37,7 +28,7 @@ describe("pseudo-random-generator", async assert => {
       gen12,
       gen21,
       gen22
-    ].map(g => callN(9, g));
+    ].map(g => call9(g));
     assert({
       given: "a split of two rng from the same seed",
       should: "produce the same 'first' sub-generator",
@@ -54,7 +45,7 @@ describe("pseudo-random-generator", async assert => {
 
   {
     const gen1 = createStaticGenerator([4, 2, 3, 5, 7]);
-    const values = callN(11, gen1);
+    const values = call11(gen1);
     assert({
       given: "a static number generator",
       should: "produce always the same sequence of values",
@@ -63,7 +54,7 @@ describe("pseudo-random-generator", async assert => {
     });
 
     const gens = gen1.split();
-    const [values1, values2] = gens.map(gen => callN(3, gen));
+    const [values1, values2] = gens.map(gen => call3(gen));
     values1.forEach((value, i) =>
       assert({
         given: "a splitted static number generator",
