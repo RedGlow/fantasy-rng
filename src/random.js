@@ -3,28 +3,23 @@ import { tagged } from "daggy";
 
 import { createStaticGenerator } from "./pseudo-random-generator";
 
-export const Random = tagged("Random", ["rng"]);
-
-Random[fl.of] = value => Random(createStaticGenerator([value]));
-
-const split = t => func => arg =>
-  t.rng.split().map(rng => Random(rng)[func](arg).rng);
-
 const zip = arr1 => arr2 => arr1.map((v1, i) => [v1, arr2[i]]);
 
+export const Random = tagged("Random", ["rng"]);
+
 // fantasy-land/map :: Functor f => f a ~> (a -> b) -> f b
-Random.prototype[fl.map] = function(f) {
+Random.prototype[fl.map] = function (f) {
   return Random({
     next: () => {
       const [value, nextRng] = this.rng.next();
       return [f(value), Random(nextRng)[fl.map](f).rng];
     },
-    split: () => split(this)(fl.map)(f)
+    split: () => this.rng.split().map(rng => Random(rng)[fl.map](f).rng)
   });
 };
 
 // fantasy-land/ap :: Apply f => f a ~> f (a -> b) -> f b
-Random.prototype[fl.ap] = function(randomf) {
+Random.prototype[fl.ap] = function (randomf) {
   return Random({
     next: () => {
       const [value, nextRng] = this.rng.next();
@@ -38,7 +33,10 @@ Random.prototype[fl.ap] = function(randomf) {
   });
 };
 
+// fantasy-land/of :: Applicative f => a -> f a
+Random[fl.of] = value => Random(createStaticGenerator([value]));
+
 // fantasy-land/chain :: Chain m => m a ~> (a -> m b) -> m b
-Random.prototype[fl.chain] = function(randomf) {
+Random.prototype[fl.chain] = function (randomf) {
   return randomf(this.rng.next()[0]);
 };
